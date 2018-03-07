@@ -15,7 +15,7 @@ class Hand:
         # Количество тузов на руке.
         aces = 0
         for card in self.cards:
-            result = result + card.card_value
+            result += card.card_value()
             # Если на руке есть туз - увеличиваем количество тузов
             if card.get_rank() == "A":
                 aces += 1
