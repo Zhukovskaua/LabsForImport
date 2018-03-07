@@ -2,16 +2,12 @@ import Card
 
 
 class Deck:
-    def __init__(self):
+    def __init__(self):  # метод __init__ используется для автоматического присвоения аттрибутов при вызове класса
         import random
-        # ранги
         ranks = "23456789TJQKA"
-        # масти
         suits = "DCHS"
-        # генератор списков создающий колоду из 52 карт
-        self.cards = [Card(r, s) for r in ranks for s in suits]
-        # перетасовываем колоду. Не забудьте импортировать функцию shuffle из модуля random
-        random.shuffle(self.cards)
+        self.cards = [Card(r, s) for r in ranks for s in suits] # генератор списков создающий колоду из 52 карт
+        random.shuffle(self.cards)  # перетасовываем колоду в стек
 
     def deal_card(self):
         """ Функция сдачи карты """
