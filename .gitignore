@@ -1,3 +1,7 @@
 
 *.xml
+<<<<<<< HEAD
 .idea/TiMP.iml
+=======
+*.pyc
+>>>>>>> testing
