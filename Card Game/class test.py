@@ -1,8 +1,4 @@
-class First:
-    color = "red"
-
-    def out(self):
-        print(self.color + "!")
+from Doc import First
 
 obj1 = First()
 obj2 = First()
