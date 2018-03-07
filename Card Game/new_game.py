@@ -35,7 +35,7 @@ class Deck:
     def __init__(self):  # метод __init__ используется для автоматического присвоения аттрибутов при вызове класса
         import random
         ranks = "23456789TJQKA"
-        suits = "DCHS"
+        suits = "КПЧБ"
         self.cards = [Card(r, s) for r in ranks for s in suits] # генератор списков создающий колоду из 52 карт
         random.shuffle(self.cards)  # перетасовываем колоду в стек
 
@@ -82,17 +82,23 @@ def new_game():
     in_game = True
     # набирать карты игроку имеет смысл только если у него на руке меньше 21 очка
     while player_hand.get_value() < 21:
-        ans = input(' Hit or stand? (h/s) ')
-        if ans == "h":
+        ans = input('Брать ещё ? (y/n) ')
+        if ans == "n":
+            print("Вы выбрали стоп!")
+            break
+        else:
             player_hand.add_card(d.deal_card())
             print(player_hand)
             # Если у игрока перебор - дилеру нет смысла набирать карты
             if player_hand.get_value() > 21:
-                print("You lose")
+                print("Вы проиграли!")
+                ans = input('Будете играть ещё ?(y/n) ')
+                if ans == "n":
+                    print("Всего доброго!!")
+                    exit(0)
+                else:
+                    new_game()
                 in_game = False
-        else:
-            print("You stand!")
-            break
     print("=" * 20)
     if in_game:
         # По правилам дилер обязан набирать карты пока его счет меньше 17
@@ -101,15 +107,33 @@ def new_game():
             print(dealer_hand)
             # Если у дилера перебор играть дальше нет смысла - игрок выиграл
             if dealer_hand.get_value() > 21:
-                print("Dealer bust")
+                print("Раздающий проиграл")
+                ans = input('Будете играть ещё ?(y/n) ')
+                if ans == "n":
+                    print("Всего доброго!!")
+                    exit(0)
+                else:
+                    new_game()
                 in_game = False
     if in_game:
         # Ни у кого не было перебора - сравниваем количество очков у игрока и дилера.
         # В нашей версии если у дилера и игрока равное количество очков - выигрывает казино
         if player_hand.get_value() > dealer_hand.get_value():
-            print("You win")
+            print("Вы выиграли!")
+            ans = input('Будете играть ещё ?(y/n) ')
+            if ans == "n":
+                print("Всего доброго!!")
+                exit(0)
+            else:
+                new_game()
         else:
-            print("Dealer win")
+            print("Раздающий выиграл!")
+            ans = input('Будете играть ещё ?(y/n) ')
+            if ans == "n":
+                print("Всего доброго!")
+                exit(0)
+            else:
+                new_game()
 
 
 new_game()
