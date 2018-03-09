@@ -9,7 +9,6 @@ if not answer or answer[0].lower() != 'n':
         count = result
         result = evro.currency_calc(money,currency)
         money = result
-        print("money", money)
         rate = int(input("Введите процентную ставку: "))
         period = int(input("Введите период ведения счета в месяцах: "))
         result = account.calculate_income(rate, money, period)
