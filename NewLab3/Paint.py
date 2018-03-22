@@ -74,6 +74,9 @@ class Paint(Frame):
         ten_btn = Button(self, text="Ten", width=10,
         command = lambda: self.set_brush_size(10))
         ten_btn.grid(row=1, column=4)
+        clear_btn = Button(self, text="Clear All", width=10,
+                          command=lambda: self.canv.delete("all"))
+        clear_btn.grid(row=0, column=8)
 
 
 
