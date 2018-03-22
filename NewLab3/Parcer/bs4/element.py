@@ -986,7 +986,7 @@ class Tag(PageElement):
                 return i
         raise ValueError("Tag.index: element not in tag")
 
-    def get(self, key, default=None):
+    def get(self, key: object, default: object = None) -> object:
         """Returns the value of the 'key' attribute for the tag, or
         the value given for 'default' if it doesn't have that
         attribute."""
