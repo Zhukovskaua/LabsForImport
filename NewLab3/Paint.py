@@ -44,14 +44,21 @@ class Paint(Frame):
                          command=lambda: self.set_color("red"))
         red_btn.grid(row=0, column=1)
 
-______________________________
+        green_btn = Button(self, text="Green", width=10,
+                           command=lambda: self.set_color("green"))
+        green_btn.grid(row=0, column=2)
 
-        clear_btn = Button(self, text="Clear all", width=10,
-                           command=lambda: self.canv.delete("all"))
-        clear_btn.grid(row=0, column=6, sticky=W)
+        blue_btn = Button(self, text="Blue", width=10,
+                          command=lambda: self.set_color("blue"))
+        blue_btn.grid(row=0, column=3)
+
+        blue_btn = Button(self, text="Black", width=10,
+                          command=lambda: self.set_color("black"))
+        blue_btn.grid(row=0, column=4)
 
         size_lab = Label(self, text="Brush size: ")
         size_lab.grid(row=1, column=0, padx=5)
+
         one_btn = Button(self, text="Two", width=10,
                          command=lambda: self.set_brush_size(2))
         one_btn.grid(row=1, column=1)
@@ -59,7 +66,14 @@ ______________________________
         two_btn = Button(self, text="Five", width=10,
                          command=lambda: self.set_brush_size(5))
         two_btn.grid(row=1, column=2)
-_________________________________
+
+        seven_btn = Button(self, text="Seven", width=10,
+        command = lambda: self.set_brush_size(7))
+        seven_btn.grid(row=1, column=3)
+
+        ten_btn = Button(self, text="Ten", width=10,
+        command = lambda: self.set_brush_size(10))
+        ten_btn.grid(row=1, column=4)
 
 
 
@@ -69,3 +83,4 @@ def main():
     app = Paint(root)
     root.mainloop()
 
+main()
