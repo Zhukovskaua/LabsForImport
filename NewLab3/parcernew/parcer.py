@@ -1,16 +1,68 @@
-from html.parser import HTMLParser
-from urllib.request import urlopen
--
-class MyHTMLParser(HTMLParser):
-    def handle_starttag(self, tag, attrs):
-        print("Encountered a start tag:", tag)
+import urllib.request
+from bs4 import BeautifulSoup
+import csv
 
-    def handle_endtag(self, tag):
-        print("Encountered an end tag :", tag)
+BASE_URL = 'https://www.weblancer.net/jobs/'
 
-    def handle_data(self, data):
-        print("Encountered some data  :", data)
 
-parser = MyHTMLParser()
-parser.feed('<html><head><title>Test</title></head>'
-            '<body><h1>Parse me!</h1></body></html>')
+def get_html(url):
+    response = urllib.request.urlopen(url)
+    return response.read()
+
+
+def get_page_count(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    paggination = soup('ul')[3:4]
+    lis = [li for ul in paggination for li in ul.findAll('li')][-1]
+    for link in lis.find_all('a'):
+        var1 = (link.get('href'))
+
+    var2 = var1[-3:]
+#    var2 = float(var2)
+    return var2
+
+
+def parse(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    table = soup.find('div', {'class': 'container-fluid cols_table show_visited'})
+
+    projects = []
+
+    for row in table.find_all('div', {'class': 'row'}):
+        cols = row.find_all('div')
+
+        projects.append({
+            'title': cols[0].a.text,
+            'categories': [category.text for category in row.div.find_all('a', {'class': 'text-muted'})],
+            'price': cols[2].text.strip(),
+            'application': cols[3].text.strip().split()[0]
+        })
+
+    return projects
+
+
+def save(projects, path):
+    with open(path, 'w') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(('Проект', 'Категории', 'Цена', 'Заявки'))
+
+        for project in projects:
+            writer.writerow((project['title'], project['categories'], project['price'], project['application']))
+
+
+def main():
+    page_count = get_page_count(get_html(BASE_URL))
+
+    print('Всего найдено страниц:', page_count)
+
+    projects = []
+
+    for page in page_count:
+#        print('Парсинг', (page / page_count * 100))
+        projects.extend(parse(get_html(BASE_URL)))
+
+    save(projects, 'proj.csv')
+
+
+if __name__ == '__main__':
+    main()

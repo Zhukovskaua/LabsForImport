@@ -6,7 +6,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 
 
-BASE_URL = 'http://www.weblancer.net/projects/'
+BASE_URL = 'http://www.weblancer.net/jobs/'
 
 
 def get_html(url):
@@ -15,15 +15,16 @@ def get_html(url):
 
 
 def get_page_count(html):
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, "html.parser")
     paggination = soup.find('div', class_='pages_list text_box')
-    return int(paggination.find_all('a')[-2].text)
+    return paggination.find_all('a')[-2].text
 
 
 def parse(html):
     soup = BeautifulSoup(html)
     table = soup.find('table', class_='items_list')
     rows = table.find_all('tr')[1:]
+
 
     projects = []
     for row in rows:
@@ -39,28 +40,30 @@ def parse(html):
 
     return projects
 
+
 def save(projects, path):
     with open(path, 'w') as csvfile:
         writer = csv.writer(csvfile)
 
-        writer.writerow(('Проект', 'Категории', 'Цена', 'Заявки'))
+        writer.writerow(('Project', 'Cat_s', 'Price', 'calls'))
 
         writer.writerows(
             (project['title'], ', '.join(project['categories']), project['price'], project['application']) for project in projects
         )
 
+
 def main():
     total_pages = get_page_count(get_html(BASE_URL))
 
-    print('Всего найдено %d страниц...' % total_pages)
+    print('Founded %d pages...' % total_pages)
 
     projects = []
 
     for page in range(1, total_pages + 1):
-        print('Парсинг %d%% (%d/%d)' % (page / total_pages * 100, page, total_pages))
+        print('Parcing %d%% (%d/%d)' % (page / total_pages * 100, page, total_pages))
         projects.extend(parse(get_html(BASE_URL + "page=%d" % page)))
 
-    print('Сохранение...')
+    print('Saving...')
     save(projects, 'projects.csv')
 
 
