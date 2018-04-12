@@ -1,8 +1,8 @@
-def wtf():
+def wtf(text):
     try:
-        namefile = input("File name: ")
+        namefile = "Private key"
+        open(namefile, 'w')
         with open(namefile, 'ab') as file:
-            text = input("Write the text: ")
             file.write(text.encode("utf-8"))
     except FileNotFoundError:
         print("[x] File: '" + str(namefile) + "' is not defined!")
@@ -10,8 +10,10 @@ def wtf():
     else:
         print("[+] File: " + str(namefile) + " successfully overwritten!")
 
+
 def choose(ch):
     ch = input("Choose alghorytm:")
+
 
 def aes():
     import pyAesCrypt
@@ -23,6 +25,7 @@ def aes():
         raise SystemExit
     fileName = input("Write the file: ")
     paswFile = input("Write the password: ")
+    wtf(paswFile)
     bufferSize = 64 * 1024
 
     def encryptDecrypt(mode, file, password, final=""):
@@ -46,6 +49,7 @@ def aes():
                 return "[+] File '" + str(splitext(file)[0]) + ".crp' overwritten!"
 
     print(encryptDecrypt(cryptMode, fileName, paswFile))
+
 
 def rsa():
     import rsa
@@ -85,7 +89,8 @@ def caesar():
     try:
         rotKey = int(input("Write the key: "))
     except ValueError:
-        print("Only numbers!"); raise SystemExit
+        print("Only numbers!");
+        raise SystemExit
 
     def encryptDecrypt(mode, message, key, final=""):
         for symbol in message:
@@ -97,14 +102,15 @@ def caesar():
 
     print("Final message:", encryptDecrypt(cryptMode, startMessage, rotKey))
 
+
 cryptMode = input("[A]es|[R]sa|[C]aesar: ").upper()
 if cryptMode not in ['A', 'R', 'C']:
-   print("Error: mode is not Found!");
-   raise SystemExit
+    print("Error: mode is not Found!");
+    raise SystemExit
 
-if cryptMode in ['A', 'a'] :
-
-if cryptMode in ['R', 'r'] :
-
-if cryptMode in ['C', 'c'] :
-    
+if cryptMode in ['A', 'a']:
+    aes()
+if cryptMode in ['R', 'r']:
+    rsa()
+if cryptMode in ['C', 'c']:
+    caesar()
