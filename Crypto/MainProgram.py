@@ -1,6 +1,6 @@
-def wtf(text):
+def wtk(text):
     try:
-        namefile = "Private key"
+        namefile = "Private key.txt"
         open(namefile, 'w')
         with open(namefile, 'ab') as file:
             file.write(text.encode("utf-8"))
@@ -11,8 +11,30 @@ def wtf(text):
         print("[+] File: " + str(namefile) + " successfully overwritten!")
 
 
-def choose(ch):
-    ch = input("Choose alghorytm:")
+def wtpk(text):
+    try:
+        namefile = "Public key.txt"
+        open(namefile, 'w')
+        with open(namefile, 'ab') as file:
+            file.write(text.encode("utf-8"))
+    except FileNotFoundError:
+        print("[x] File: '" + str(namefile) + "' is not defined!")
+        raise SystemExit
+    else:
+        print("[+] File: " + str(namefile) + " successfully overwritten!")
+
+
+def wtf(text):
+    try:
+        namefile = "Crypted text.txt"
+        open(namefile, 'w')
+        with open(namefile, 'ab') as file:
+            file.write(text.encode("utf-8"))
+    except FileNotFoundError:
+        print("[x] File: '" + str(namefile) + "' is not defined!")
+        raise SystemExit
+    else:
+        print("[+] File: " + str(namefile) + " successfully overwritten!")
 
 
 def aes():
@@ -25,7 +47,7 @@ def aes():
         raise SystemExit
     fileName = input("Write the file: ")
     paswFile = input("Write the password: ")
-    wtf(paswFile)
+    wtk(paswFile)
     bufferSize = 64 * 1024
 
     def encryptDecrypt(mode, file, password, final=""):
@@ -55,7 +77,9 @@ def rsa():
     import rsa
     (pub, priv) = rsa.newkeys(1024)
     print("\n" + str(pub))
+    wtpk(pub)
     print("\n" + str(priv) + "\n")
+    wtk(priv)
     with open("crypt.py", "w") as crypt:
         crypt.write('''
     import rsa 
@@ -88,6 +112,7 @@ def caesar():
     startMessage = input("Write the message: ").upper()
     try:
         rotKey = int(input("Write the key: "))
+        wtk(rotKey)
     except ValueError:
         print("Only numbers!");
         raise SystemExit
@@ -100,6 +125,7 @@ def caesar():
                 final += chr((ord(symbol) - key - 13) % 26 + ord('A'))
         return final
 
+    wtf(encryptDecrypt(cryptMode, startMessage, rotKey))
     print("Final message:", encryptDecrypt(cryptMode, startMessage, rotKey))
 
 
