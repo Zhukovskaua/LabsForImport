@@ -4,7 +4,7 @@ b = int (input("b = "))
 c = int (input("c = "))
 
 D = b**2 - 4*a*c
-print ("\nДискриминант D = %.3f" % D)
+print ("Дискриминант = %.3f" % D)
 if D > 0:
     import math
     x1 = (-b + math.sqrt(D)) / (2 * a)

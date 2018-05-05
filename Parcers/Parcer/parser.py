@@ -2,7 +2,6 @@
 # -- coding: utf-8 --
 from bs4 import BeautifulSoup
 import requests
-import fake_useragent
 import io
 from time import sleep
 
@@ -15,14 +14,10 @@ from time import sleep
 # Just a line
 line = "---------------------------------------------------------------"
 
-# Random User-Agent
-ua = fake_useragent.UserAgent()
-user = ua.random
-header = {'User-Agent': str(user)}
 
 # Connection to the ip-site
 ipSite = 'http://icanhazip.com'
-adress = requests.get(ipSite, headers=header)
+adress = requests.get(ipSite)
 
 # Check your ip adress
 print(line + "\n[*] IP your network:\n" + adress.text + line)
@@ -41,7 +36,7 @@ proxie = {
 
 # Connecting to the network tor
 try:
-    adress = requests.get(ipSite, proxies=proxie, headers=header)
+    adress = requests.get(ipSite, proxies=proxie)
 # Not connected
 except:
     connection = False
@@ -55,12 +50,12 @@ else:
 
 # Parse site
 finally:
-    url = input("[!] Uniform Resource Locator:\nhttp://")
+    url = 'http://www.pythonchallenge.com/pc/def/ocr.html'
 
 if connection == True:
-    page = requests.get("http://" + str(url.split()[0]), proxies=proxie, headers=header)
+    page = requests.get("http://" + str(url.split()[0]), proxies=proxie)
 else:
-    page = requests.get("http://" + str(url.split()[0]), headers=header)
+    page = requests.get("http://" + str(url.split()[0]))
 
 soup = BeautifulSoup(page.text, "html.parser")
 
