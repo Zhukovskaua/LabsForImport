@@ -1,14 +1,6 @@
 import pickle
-
-# Открываем файлик для чтения
-text = open('5.p','rb')
-
-# Загружаем объект
-obj = pickle.load(text)
-
-# Смотрим что получилось
-print(dir(obj))
-
-for lines in obj:
-    line = [ch * count for ch, count in lines]
-    print( "".join(line))
+from urllib.request import urlopen
+source = urlopen("http://www.pythonchallenge.com/pc/def/banner.p")
+raw = pickle.load(source)
+for line in raw:
+    print("".join([a * b for b, a in line]))
