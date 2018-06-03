@@ -5,27 +5,14 @@ import numpy as np
 def read(num):
     ch1 = input('Не хотите ввести случайную матрицу? 1/0')
     if int(ch1) == 1:
-        first_matrix = random()
-        print(first_matrix)
-        ch2 = input('Вам нужна ещё одна случайная матрица? 1/0')
-        if int(ch2) == 1:
-            second_matrix = random()
-            print(second_matrix)
-            return first_matrix, second_matrix
-        elif int(ch2) == 1:
-            print('Введите вашу матрицу в файл 1.txt находящийся в папке с программой')
-            print('Вторую соответственно в файл 2.txt')
-            print('Все числа должны быть введены через запятую, кроме последнего элемента в строке')
-            print('Пример')
-            print('''1,2,3
-            4,5,6
-            7,8,9
-                        ''')
-            ch = input('Отправьте единицу когда матрица будет введена')
-            if int(ch) == 1:
-                second_matrix = np.genfromtxt("1.txt", delimiter=",")
-                return first_matrix, second_matrix
-
+        matrix = random()
+        print(matrix)
+        if num == 1:
+            first_matrix = matrix
+            return first_matrix
+        if num == 2:
+            second_matrix = matrix
+            return second_matrix
     print('Введите вашу матрицу в файл 1.txt находящийся в папке с программой')
     print('Вторую соответственно в файл 2.txt')
     print('Все числа должны быть введены через запятую, кроме последнего элемента в строке')
