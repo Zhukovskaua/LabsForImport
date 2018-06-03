@@ -5,21 +5,27 @@ import numpy as np
 def read(num):
     ch1 = input('Не хотите ввести случайную матрицу? 1/0')
     if int(ch1) == 1:
-        columns = input('Введите количество столбцов')
-        rows = input('Введите количество строк')
-        columns = int(columns)
-        rows = int(rows)
-        first_matrix = np.random.randint(0, 10, (rows, columns))
+        first_matrix = random()
         print(first_matrix)
-    ch2 = input('Вторая матрицу тоже сделать случайной? 1/0')
-    if int(ch2) == 1:
-        columns = input('Введите количество столбцов')
-        rows = input('Введите количество строк')
-        columns = int(columns)
-        rows = int(rows)
-        second_matrix = np.random.randint(0, 10, (rows, columns))
-        print(second_matrix)
-        return first_matrix, second_matrix
+        ch2 = input('Вам нужна ещё одна случайная матрица? 1/0')
+        if int(ch2) == 1:
+            second_matrix = random()
+            print(second_matrix)
+            return first_matrix, second_matrix
+        elif int(ch2) == 1:
+            print('Введите вашу матрицу в файл 1.txt находящийся в папке с программой')
+            print('Вторую соответственно в файл 2.txt')
+            print('Все числа должны быть введены через запятую, кроме последнего элемента в строке')
+            print('Пример')
+            print('''1,2,3
+            4,5,6
+            7,8,9
+                        ''')
+            ch = input('Отправьте единицу когда матрица будет введена')
+            if int(ch) == 1:
+                second_matrix = np.genfromtxt("1.txt", delimiter=",")
+                return first_matrix, second_matrix
+
     print('Введите вашу матрицу в файл 1.txt находящийся в папке с программой')
     print('Вторую соответственно в файл 2.txt')
     print('Все числа должны быть введены через запятую, кроме последнего элемента в строке')
@@ -36,6 +42,16 @@ def read(num):
             return first_matrix
         if num == 2:
             return second_matrix
+
+
+def random():
+        columns = input('Введите количество столбцов')
+        rows = input('Введите количество строк')
+        columns = int(columns)
+        rows = int(rows)
+        matrix = np.random.randint(0, 10, (rows, columns))
+        print('Случайная матрица :\n', matrix)
+        return matrix
 
 
 def transpose(first_matrix):
