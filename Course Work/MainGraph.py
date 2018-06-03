@@ -5,8 +5,8 @@ import numpy as np
 from copy import deepcopy
 
 
-def Range(line):  # Функция поиска области допустимых значений
-    global k, dots, count
+def range_(line):  # Функция поиска области допустимых значений
+    global k, dots
     count = 0
     if re.search(r'sin*|cos*|tan*|cot*', line):  # Отбор точек, если в строке встретилась тригонометрия
         k = False
@@ -248,13 +248,11 @@ def main():
     global value
     value = input("Введите букву, которая будет аргументом функции F(?):")
 
-    #  print(odz(statement))
-
     while True:  # Построение графика по заранее расчитанным точкам
         statement = input("Введите функцию:")
         if statement == "exit":
             break
-        graph = Range(statement)
+        graph = range_(statement)
 
         with plt.style.context("bmh"):
             plt.plot(graph[0], graph[1], 'k-o')

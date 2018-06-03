@@ -1,12 +1,16 @@
 # Реализация расчета матриц
 import numpy as np
 
+with open('1.txt', 'w') as f:
+    pass
+with open('2.txt', 'w') as f:
+    pass
+
 
 def read(num):
     ch1 = input('Не хотите ввести случайную матрицу? 1/0')
     if int(ch1) == 1:
         matrix = random()
-        print(matrix)
         if num == 1:
             first_matrix = matrix
             return first_matrix
@@ -47,7 +51,7 @@ def transpose(first_matrix):
 
 
 def multiplication(first_matrix, second_matrix):
-    ch = input('1 - Если нужно умножить первую матрицу на второую, 2 - если наоборот')
+    ch = input('1 - Если нужно умножить первую матрицу на вторую, 2 - если наоборот')
     if int(ch) == 1:
         rez = first_matrix.dot(second_matrix)
         print(rez)
@@ -57,7 +61,7 @@ def multiplication(first_matrix, second_matrix):
 
 
 def division(first_matrix, second_matrix):
-    ch = input('1 - Если нужно разделить первую матрицу на второую, 2 - если наоборот')
+    ch = input('1 - Если нужно разделить первую матрицу на вторую, 2 - если наоборот')
     if int(ch) == 1:
         rez = first_matrix/second_matrix
         print(rez)
@@ -67,7 +71,7 @@ def division(first_matrix, second_matrix):
 
 
 def rod(first_matrix, second_matrix):
-    ch = input('1 - Если нужно разделить первую матрицу на второую, 2 - если наоборот')
+    ch = input('1 - Если нужно разделить первую матрицу на вторую, 2 - если наоборот')
     if int(ch) == 1:
         rez = first_matrix % second_matrix
         print(rez)
@@ -129,17 +133,17 @@ def inv(first_matrix, second_matrix):
     ch = input('1 - Если нужена обратная первой матрица, 2 - если второй')
     if int(ch) == 1:
         rez = np.linalg.inv(first_matrix)
-        print('Определитель первой матрицы =\n', rez)
+        print('Обратная первой матрица =\n', rez)
     elif int(ch) == 2:
         rez = np.linalg.inv(second_matrix)
-        print('Определитель второй матрицы =\n', rez)
+        print('Обратная второй матрица =\n', rez)
 
 
 def main():
     print('Какое действие вам необходимо совершить?')
-    print('(1 - Транспонировать матрицу; 2 - Умножение матриц; 3 - Деление; 4 - Остаток от деления;')
+    print('1 - Транспонировать матрицу; 2 - Умножение матриц; 3 - Деление; 4 - Остаток от деления;')
     print('5 - Поиск минимального или максимального значения; 6 - Возвести в степень; ')
-    print('7 - Разложение Холецкого; 8 - Определитель; 9 - Обратная матрица;)')
+    print('7 - Разложение Холецкого; 8 - Определитель; 9 - Обратная матрица;')
     action = input('Отправьте ноль для выхода')
     action = int(action)
     if action == 1:
