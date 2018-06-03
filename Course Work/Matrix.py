@@ -3,6 +3,23 @@ import numpy as np
 
 
 def read(num):
+    ch1 = input('Не хотите ввести случайную матрицу? 1/0')
+    if int(ch1) == 1:
+        columns = input('Введите количество столбцов')
+        rows = input('Введите количество строк')
+        columns = int(columns)
+        rows = int(rows)
+        first_matrix = np.random.randint(0, 10, (rows, columns))
+        print(first_matrix)
+    ch2 = input('Вторая матрицу тоже сделать случайной? 1/0')
+    if int(ch2) == 1:
+        columns = input('Введите количество столбцов')
+        rows = input('Введите количество строк')
+        columns = int(columns)
+        rows = int(rows)
+        second_matrix = np.random.randint(0, 10, (rows, columns))
+        print(second_matrix)
+        return first_matrix, second_matrix
     print('Введите вашу матрицу в файл 1.txt находящийся в папке с программой')
     print('Вторую соответственно в файл 2.txt')
     print('Все числа должны быть введены через запятую, кроме последнего элемента в строке')
@@ -20,11 +37,13 @@ def read(num):
         if num == 2:
             return second_matrix
 
+
 def transpose(first_matrix):
     a = first_matrix.transpose()
     print('Транспонированная матрица \n', a)
 
-def multiplication(first_matrix,second_matrix):
+
+def multiplication(first_matrix, second_matrix):
     ch = input('1 - Если нужно умножить первую матрицу на второую, 2 - если наоборот')
     if int(ch) == 1:
         rez = first_matrix.dot(second_matrix)
@@ -33,7 +52,8 @@ def multiplication(first_matrix,second_matrix):
         rez = second_matrix.dot(first_matrix)
         print(rez)
 
-def division(first_matrix,second_matrix):
+
+def division(first_matrix, second_matrix):
     ch = input('1 - Если нужно разделить первую матрицу на второую, 2 - если наоборот')
     if int(ch) == 1:
         rez = first_matrix/second_matrix
@@ -43,7 +63,7 @@ def division(first_matrix,second_matrix):
         print(rez)
 
 
-def rod(first_matrix,second_matrix):
+def rod(first_matrix, second_matrix):
     ch = input('1 - Если нужно разделить первую матрицу на второую, 2 - если наоборот')
     if int(ch) == 1:
         rez = first_matrix % second_matrix
@@ -52,19 +72,47 @@ def rod(first_matrix,second_matrix):
         rez = second_matrix % first_matrix
         print(rez)
 
-def minmax():
-    choose()
+
+def min_max(first_matrix, second_matrix):
+    ch = input('1 - Если нужно найти максимальный элемент, 2 - если минимальный')
+    ch1 = input('1 - Для первого массива, 2 - для второго')
+    if int(ch) == 1:
+        if int(ch1) == 1:
+            rez = np.max(first_matrix)
+            print('Максимальный элемент первого массива =', rez)
+        elif int(ch1) == 2:
+            rez = np.max(second_matrix)
+            print('Максимальный элемент второго массива =', rez)
+    elif int(ch) == 2:
+        if int(ch1) == 1:
+            rez = np.min(first_matrix)
+            print('Минимальный элемент первого массива =', rez)
+        elif int(ch1) == 2:
+            rez = np.min(second_matrix)
+            print('Минимальный элемент второго массива =', rez)
 
 
-def exp():
-    choose()
+def exp(first_matrix, second_matrix):
+    ch = input('1 - Если нужно возвести первую матрицу во вторую, 2 - если наоборот')
+    if int(ch) == 1:
+        rez = first_matrix ** second_matrix
+        print(rez)
+    elif int(ch) == 2:
+        rez = second_matrix ** first_matrix
+        print(rez)
 
 
-def chol():
-    choose()
+def chol(first_matrix, second_matrix):
+    ch = input('1 - Если нужно разложить первую матрицу, 2 - если вторую')
+    if int(ch) == 1:
+        rez = np.linalg.cholesky(first_matrix)
+        print(rez)
+    elif int(ch) == 2:
+        rez = np.linalg.cholesky(second_matrix)
+        print(rez)
 
 
-def det(first_matrix,second_matrix):
+def det(first_matrix, second_matrix):
     ch = input('1 - Если нужен определитель первой матрицы, 2 - если второй')
     if int(ch) == 1:
         rez = np.linalg.det(first_matrix)
@@ -74,9 +122,14 @@ def det(first_matrix,second_matrix):
         print('Определитель второй матрицы =', rez)
 
 
-
-def inv():
-    choose()
+def inv(first_matrix, second_matrix):
+    ch = input('1 - Если нужена обратная первой матрица, 2 - если второй')
+    if int(ch) == 1:
+        rez = np.linalg.inv(first_matrix)
+        print('Определитель первой матрицы =\n', rez)
+    elif int(ch) == 2:
+        rez = np.linalg.inv(second_matrix)
+        print('Определитель второй матрицы =\n', rez)
 
 
 def main():
@@ -94,12 +147,12 @@ def main():
     if action == 2:
         first_matrix = read(1)
         second_matrix = read(2)
-        multiplication(first_matrix,second_matrix)
+        multiplication(first_matrix, second_matrix)
         main()
     if action == 3:
         first_matrix = read(1)
         second_matrix = read(2)
-        division(first_matrix,second_matrix)
+        division(first_matrix, second_matrix)
         main()
     if action == 4:
         first_matrix = read(1)
@@ -107,21 +160,32 @@ def main():
         rod(first_matrix, second_matrix)
         main()
     if action == 5:
-        minmax()
+        first_matrix = read(1)
+        second_matrix = read(2)
+        min_max(first_matrix, second_matrix)
+        main()
     if action == 6:
-        exp()
+        first_matrix = read(1)
+        second_matrix = read(2)
+        exp(first_matrix, second_matrix)
+        main()
     if action == 7:
-        chol()
+        first_matrix = read(1)
+        second_matrix = read(2)
+        chol(first_matrix, second_matrix)
+        main()
     if action == 8:
         first_matrix = read(1)
         second_matrix = read(2)
-        det(first_matrix,second_matrix)
+        det(first_matrix, second_matrix)
         main()
     if action == 9:
-        inv()
+        first_matrix = read(1)
+        second_matrix = read(2)
+        inv(first_matrix, second_matrix)
+        main()
     if action == 0:
         exit('Выход')
-
 
 
 if __name__ == "__main__":

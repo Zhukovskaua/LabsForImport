@@ -1,10 +1,20 @@
 import numpy as np
 
-first_matrix = np.genfromtxt("1.txt", delimiter=",")
-second_matrix = np.genfromtxt("2.txt", delimiter=",")
 
-print(first_matrix)
-print(second_matrix)
+def iterate(Z):
+    # Count neighbours
+    N = (Z[0:-2,0:-2] + Z[0:-2,1:-1] + Z[0:-2,2:] +
+         Z[1:-1,0:-2]                + Z[1:-1,2:] +
+         Z[2:  ,0:-2] + Z[2:  ,1:-1] + Z[2:  ,2:])
 
-a = first_matrix.transpose()
-print(a)
+    # Apply rules
+    birth = (N == 3) & (Z[1:-1,1:-1]==0)
+    survive = ((N == 2) | (N == 3)) & (Z[1:-1,1:-1] == 1)
+    Z[...] = 0
+    Z[1:-1,1:-1][birth | survive] = 1
+    return Z
+
+Z = np.random.randint(0,2,(50,50))
+for i in range(100):
+    print(Z)
+    Z = iterate(Z)
